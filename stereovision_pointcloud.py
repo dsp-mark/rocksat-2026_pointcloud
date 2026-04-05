@@ -118,8 +118,17 @@ matcher = cv2.StereoSGBM_create(
     numDisparities=128,
     # The size of the matching block; has to be odd
     # I was reading that 7-11 is common for realtime
-    blockSize=11,
+    blockSize=9,
 
+    # These are penalties for the algorithm; these can be changed
+    # I was reading people do
+    # P1 = 8 * C * B^2
+    #          C = number of image channels (1 greyscale; 3 RGB)
+    #          B = blocksize (previous parameters)
+    #
+    # P2 = 32 * C * B^2
+    #
+    # Typically you want a ratio of 4
     P1=8*9*9,
     P2=32*9*9,
 
