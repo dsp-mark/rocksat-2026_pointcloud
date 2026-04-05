@@ -111,13 +111,31 @@ map_right_x, map_right_y = cv2.initUndistortRectifyMap(
 
 
 matcher = cv2.StereoSGBM_create(
-    minDisparity=0,
+    # The number of disparities you're looking for
+    # this is the maximum number (which might be another
+    # reason why it's taking forever); it needs to be
+    # divisible by 16
     numDisparities=128,
-    blockSize=9,
+    # The size of the matching block; has to be odd
+    # I was reading that 7-11 is common for realtime
+    blockSize=11,
+
     P1=8*9*9,
     P2=32*9*9,
+
+    # This is the maximum difference allowed between left
+    # and right; this is also really high, so it might be 
+    # increasing precision at the cost of recall (it's too picky maybe)
     disp12MaxDiff=1,
+
+    # The percentage difference between the thing most common the
+    # the left and right camera (when it's figuring out what point
+    # in left is the same in the right); people were saying 5 to 15 is 
+    # normal so I just kind of went in the middle
     uniquenessRatio=10,
+
+    # Noise filtering; people typically use 50 to 200
+    # Once again, went with middle
     speckleWindowSize=100,
 ) 
 
